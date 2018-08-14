@@ -2,6 +2,7 @@ package com.taotao.springboot.web.search.controller;
 
 import com.taotao.springboot.search.domain.result.SearchRes;
 import com.taotao.springboot.search.export.SearchResource;
+import com.taotao.springboot.web.search.common.utils.JacksonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,9 @@ public class SearchController {
         // 把查询条件进行转码，解决get乱码问题
         //queryString = new String(queryString.getBytes("iso8859-1"), "utf-8");
         // 调用服务执行查询
-        log.info("商品搜索 queryString = {}, page = {}", queryString, String.valueOf(page));
+        log.info("商品搜索 queryString={} and page={}", queryString, String.valueOf(page));
         SearchRes searchRes = searchResource.search(queryString, page, SEARCH_RESULT_ROWS);
+        log.info("商品搜索 res={}", JacksonUtils.objectToJson(searchRes));
         // 把结果传递给页面
         model.addAttribute("query", queryString);
         model.addAttribute("totalPages", searchRes.getTotalPages());

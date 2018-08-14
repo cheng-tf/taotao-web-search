@@ -12,6 +12,7 @@
 
     <modules>
         <module>taotao-web-search-controller</module>
+        <module>taotao-web-search-common</module>
     </modules>
 
     <parent>

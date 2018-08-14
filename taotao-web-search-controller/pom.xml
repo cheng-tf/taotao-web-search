@@ -12,6 +12,11 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>com.taotao.springboot</groupId>
+            <artifactId>taotao-web-search-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <!-- Tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

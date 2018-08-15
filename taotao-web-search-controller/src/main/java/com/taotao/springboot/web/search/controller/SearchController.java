@@ -34,18 +34,17 @@ public class SearchController {
     @RequestMapping("/search")
     public String search(@RequestParam("q") String queryString,
                          @RequestParam(defaultValue="1") Integer page, Model model) throws Exception {
-        // 把查询条件进行转码，解决get乱码问题
+        // 转码，解决get乱码问题
         //queryString = new String(queryString.getBytes("iso8859-1"), "utf-8");
-        // 调用服务执行查询
+        // #1 调用商品搜索服务
         log.info("商品搜索 queryString={} and page={}", queryString, String.valueOf(page));
         SearchRes searchRes = searchResource.search(queryString, page, SEARCH_RESULT_ROWS);
         log.info("商品搜索 res={}", JacksonUtils.objectToJson(searchRes));
-        // 把结果传递给页面
+        // #2 结果传递
         model.addAttribute("query", queryString);
         model.addAttribute("totalPages", searchRes.getTotalPages());
         model.addAttribute("itemList", searchRes.getItemList());
         model.addAttribute("page", page);
-        // 返回逻辑视图
         return "search";
     }
 

@@ -2,6 +2,7 @@ package com.taotao.springboot.web.search.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,22 +17,21 @@ import javax.servlet.http.HttpServletResponse;
  * @author ChengTengfei
  * @version 1.0
  */
+@Component
 public class GlobalExceptionResolver implements HandlerExceptionResolver {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionResolver.class);
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionResolver.class);
 
     @Override
-    public ModelAndView resolveException(HttpServletRequest request,
-                                         HttpServletResponse response, Object handler, Exception e) {
-        logger.info("进入全局异常处理器。。。。。");
-        logger.debug("测试handler的类型：" + handler.getClass());
-        // 控制台打印异常
-        e.printStackTrace();
-        // 向日志文件中写入异常
-        logger.error("系统发生异常", e);
-        // 发邮件，使用Java Mail
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
+                                         Object handler, Exception e) {
+        log.info("进入全局异常处理器。");
+        log.debug("测试handler的类型：" + handler.getClass());
+        e.printStackTrace();// 控制台打印异常
+        log.error("系统发生异常, error={}", e);// 日志文件写入异常
+        // 发邮件(JavaMail)
         // 发短信
-        // 展示错误页面
+        // 错误页面
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("message", "您的电脑有问题，请稍后重试。");
         modelAndView.setViewName("error/exception");
